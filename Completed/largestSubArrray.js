@@ -27,11 +27,19 @@ var maxSubArray = function(nums) {
 //              maxTotal
 //              that updates with each loop to Math.max(runningTotal, maxTotal)
 
+// Another way of putting it - 
+//  the intuition is to keep a running and a max, loop, add each new number to the running and update the max
+//  the only issue is how to know when to start a new Array, i.e its start index
+//  the only time you'd want to do that is when the fresh element is greater than itself + running, i.e. what's gone before is actually bringing it down.
+
+
+// in short, the only time you want to start a new array is when your running total is negative!
+
     let runningTotal = nums[0]; //can't declare them both at once to the same value
     let maxTotal = nums[0];
 
     for(let i = 1; i < nums.length; i++){
-        nums[i] > runningTotal + nums[i] ? runningTotal = nums[i] : runningTotal += nums[i];
+        runningTotal < 0 ? runningTotal = nums[i] : runningTotal += nums[i];
         maxTotal = Math.max(runningTotal, maxTotal);
     }
 
